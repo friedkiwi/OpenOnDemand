@@ -4,11 +4,18 @@ This is an open-source implementation of a VOD OnDemand service. It takes a DVB 
 
 ## A word of warning...
 
-This codebase is unfinished. It's unlikely it'll work yet. It currently uses hardcoded values which will render usage outside of my environment impossible.
+This codebase is unfinished. It's unlikely it'll work yet, as it currently does not have a finished frontend.
+
 
 ## Compilation
 
-You should be able to just use `xbuild` in the root directory of the solution.
+First, copy the `OpenOnDemand/app.config.template` file to `OpenOnDemand/app.config` and update settings to the right values.
+ 
+Afterwards, you should be able to just use `xbuild` in the root directory of the solution.
+
+## Setting up a DVB source feed
+
+TBC
 
 ## A bit of background
 
