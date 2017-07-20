@@ -57,8 +57,6 @@ namespace OpenOnDemand
                 downloaderThread.Join();
             }
 
-
-            //dl.Start();
         }
     }
 }
