@@ -3,6 +3,8 @@ using System.Threading;
 
 using OpenOnDemand.Video;
 using OpenOnDemand.EPG;
+using System.Configuration;
+using System.IO;
 
 namespace OpenOnDemand
 {
@@ -12,10 +14,31 @@ namespace OpenOnDemand
 
         public static void Main(string[] args)
         {
+
             log.Info("OpenOnDemand Started.");
 
-            Downloader dl = new Downloader("http://localhost:9981/stream/channel/8955f1567c07223b179ac923f991bb8a?profile=openod-stream", "/Users/yvanjanssens/Desktop/ts_out");
-            EpgParser epg = new EpgParser("http://localhost:9981/xmltv/channels", "BBC One HD", "/Users/yvanjanssens/Desktop/ts_out");
+			Configuration configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            KeyValueConfigurationCollection config = configManager.AppSettings.Settings;
+
+            if (!config["XMLTV"].Value.Contains("://")) {
+                log.Error("Invalid config - invalid XMLTV URL");
+                return;
+            }
+
+			if (!config["StreamURL"].Value.Contains("://"))
+			{
+				log.Error("Invalid config - invalid Stream URL");
+				return;
+			}
+
+            if (!Directory.Exists(config["DataDirectory"].Value)) {
+				log.Error("Invalid config - Data directory does not exist");
+				return;
+            }
+
+            Downloader dl = new Downloader(config["StreamURL"].Value, config["DataDirectory"].Value);
+            EpgParser epg = new EpgParser(config["XMLTV"].Value, config["EPGChannelName"].Value, config["DataDirectory"].Value);
 
             Thread downloaderThread = new Thread(new ThreadStart(delegate {
               dl.Start();  
