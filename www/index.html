@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample HLS Playback</title>
+    <link rel="stylesheet" href="js/video-js.css" />
+    <script src="js/video.js"></script>
+    <script>
+        videojs.options.flash.swf = "js/video-js.swf";
+    </script>
+</head>
+<body>
+
+<div>
+    <video class="video-js vjs-default-skin" controls width="1280" height="720" autoplay data-setup='{"techOrder": ["flash"]}'>
+        <source src="channeldata/live.m3u8" type='video/mp4'>
+    </video>
+</div>
+
+</body>
+</html>
